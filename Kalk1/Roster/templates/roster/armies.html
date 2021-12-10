@@ -1,0 +1,40 @@
+{% extends 'roster/main.html' %}
+
+{% block content %}
+<style>
+  body,
+		html {
+		  background: #aaa !important;
+
+		  }
+</style>
+ 		<br>
+
+<div class="centered">
+	<div class="col-md-5">
+		<h5>Armies:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_army' %}">Create Army</a>
+			<table class="table table-sm">
+				<tr>
+<!--					<th></th>-->
+					<th>Army name</th>
+					<th>Army type</th>
+				</tr>
+
+				{% for army in armys %}
+					<tr>
+						<td>{{army.name}}</td>
+						<td>{{army.army_type}}</td>
+						<td><a class="btn btn-sm btn-info"href="{% url 'army_edit' army.id %}">Edit</a> </td>
+						<td><a class="btn btn-sm btn-danger"href="{% url 'delete_army' army.id %}">Delete</a> </td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+
+{% endblock %}

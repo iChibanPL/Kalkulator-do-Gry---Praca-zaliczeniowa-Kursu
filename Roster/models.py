@@ -2,10 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-"""Klasa armii wraz z funkcją do obliczania jej łącznej ilości punktów"""
 
 
 class Army(models.Model):
+
+    """Klasa armii wraz z funkcją do obliczania jej łącznej ilości punktów"""
 
     ARMY_TYPE_CHOICES = [
         ('Ork', 'Army of Orks'),
@@ -19,6 +20,7 @@ class Army(models.Model):
     def __str__(self):
         return self.name
 
+"""Obliczanie łączniej ilości punktów"""
     def calculate_points(self):
         assigned_orks = CustomUnitOrk.objects.filter(army=self)
         assigned_elf = CustomUnitElf.objects.filter(army=self)
@@ -31,32 +33,32 @@ class Army(models.Model):
         self.save()
 
 
-"""Klasa broni które mogą wykożystywać jednostki"""
-
-
 class Weapon(models.Model):
+
+    """Klasa broni które mogą wykożystywać jednostki"""
+
     name = models.CharField(max_length=100)
     point_value = models.PositiveSmallIntegerField()
 
     def __str__(self):
         return self.name
-
-
-"""Klasa panceża który mogą wykożystywać jednostki"""
 
 
 class Armor(models.Model):
+
+    """Klasa panceża który mogą wykożystywać jednostki"""
+
     name = models.CharField(max_length=100)
     point_value = models.PositiveSmallIntegerField()
 
     def __str__(self):
         return self.name
-
-
-"""Klasa Jednostek z armii Elfów"""
 
 
 class ElfUnit(models.Model):
+
+    """Klasa Jednostek z armii Elfów"""
+
     name = models.CharField(max_length=100)
     point_value = models.PositiveSmallIntegerField()
     weapons = models.ManyToManyField(Weapon, blank=True)
@@ -64,12 +66,12 @@ class ElfUnit(models.Model):
 
     def __str__(self):
         return self.name
-
-
-"""Klasa Jednostek z armii Orków"""
 
 
 class OrkUnit(models.Model):
+
+    """Klasa Jednostek z armii Orków"""
+
     name = models.CharField(max_length=100)
     point_value = models.PositiveSmallIntegerField()
     weapons = models.ManyToManyField(Weapon, blank=True)
@@ -79,18 +81,17 @@ class OrkUnit(models.Model):
         return self.name
 
 
-"""Klasa szczegółowego doboru jednostki z armii Orków,
- wraz z funkcją obliczania wartości punktowej utworzonej jednostki"""
-
-
 class CustomUnitOrk(models.Model):
+
+    """Klasa szczegółowego doboru jednostki z armii Orków,
+     wraz z funkcją obliczania wartości punktowej utworzonej jednostki"""
+
     ork = models.ForeignKey(OrkUnit, on_delete=models.CASCADE)
     armor = models.ForeignKey(Armor, on_delete=models.CASCADE)
     weapon = models.ForeignKey(Weapon, on_delete=models.CASCADE)
     army = models.ForeignKey(Army, on_delete=models.CASCADE, null=True, blank=True)
     amount = models.PositiveSmallIntegerField()
     total_points = models.PositiveSmallIntegerField(blank=True, null=True)
-
 
 
     def calculate_points(self):
@@ -102,11 +103,11 @@ class CustomUnitOrk(models.Model):
         return f'{self.ork}, {self.army}'
 
 
-"""Klasa szczegółowego doboru jednostki z armii Elfów,
- wraz z funkcją obliczania wartości punktowej utworzonej jednostki"""
-
-
 class CustomUnitElf(models.Model):
+
+    """Klasa szczegółowego doboru jednostki z armii Elfów,
+     wraz z funkcją obliczania wartości punktowej utworzonej jednostki"""
+
     elf = models.ForeignKey(ElfUnit, on_delete=models.CASCADE)
     armor = models.ForeignKey(Armor, on_delete=models.CASCADE)
     weapon = models.ForeignKey(Weapon, on_delete=models.CASCADE)

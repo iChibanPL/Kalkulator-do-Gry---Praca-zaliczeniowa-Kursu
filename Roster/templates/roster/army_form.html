@@ -1,0 +1,45 @@
+{% extends 'roster/main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+
+			<form action="" method="POST">
+				{% csrf_token %}
+				{{form}}
+
+				<input type="submit" name="Submit">
+			</form>
+
+		</div>
+	</div>
+</div>
+<div>
+	<h1>ARMY POINTS: {{ army.total_points }}</h1>
+	<hr>
+	<table class="table table-sm">
+		<tr>
+			<th>Unit Name</th>
+			<th>Unit Weapon</th>
+			<th>Unit Armor</th>
+			<th>Unit Amount</th>
+			<th>Total Points</th>
+		</tr>
+
+		{% for unit in existing_units %}
+			<tr>
+				<td>{{ unit.ork }}{{ unit.elf}}</td>
+				<td>{{ unit.weapon }}</td><td>{{ unit.armor }}</td>
+				<td>{{ unit.amount }}</td><td>{{ unit.total_points }}</td>
+				<td><a class="btn btn-sm btn-danger" href="{% url 'delete_unit' army.id unit.id  %}">Delete</a> </td>
+			</tr>
+
+		{% endfor %}
+	</table>
+</div>
+
+
+{% endblock %}

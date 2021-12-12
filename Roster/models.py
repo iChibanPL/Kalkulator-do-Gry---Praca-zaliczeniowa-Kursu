@@ -2,8 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-
-
 class Army(models.Model):
 
     """Klasa armii wraz z funkcją do obliczania jej łącznej ilości punktów"""
@@ -20,7 +18,6 @@ class Army(models.Model):
     def __str__(self):
         return self.name
 
-"""Obliczanie łączniej ilości punktów"""
     def calculate_points(self):
         assigned_orks = CustomUnitOrk.objects.filter(army=self)
         assigned_elf = CustomUnitElf.objects.filter(army=self)
@@ -92,7 +89,6 @@ class CustomUnitOrk(models.Model):
     army = models.ForeignKey(Army, on_delete=models.CASCADE, null=True, blank=True)
     amount = models.PositiveSmallIntegerField()
     total_points = models.PositiveSmallIntegerField(blank=True, null=True)
-
 
     def calculate_points(self):
         points = (self.ork.point_value+self.armor.point_value+self.weapon.point_value)*self.amount

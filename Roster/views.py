@@ -64,17 +64,6 @@ def logoutUser(request):
     return redirect('login')
 
 
-
-
-# """Funkcja do zliczania punktów jednostek"""
-# def calculate(request):
-#     testowe_ork = CustomUnitOrk.objects.first()
-#     testowe_ork.calculate_points()
-#     testowe_elf = CustomUnitElf.objects.first()
-#     testowe_elf.calculate_points()
-#     return render(request, 'roster/dashboard.html')
-
-
 def home(request):
 
     """Przekierowanie na strone główną """
@@ -172,4 +161,17 @@ def delete_army_unit(request, army_id, unit_id):
 
     return redirect('army_edit', army_id)
 
+
+
+
+
+
+
+# """Funkcja do zliczania punktów jednostek"""
+# def calculate(request):
+#     testowe_ork = CustomUnitOrk.objects.first()
+#     testowe_ork.calculate_points()
+#     testowe_elf = CustomUnitElf.objects.first()
+#     testowe_elf.calculate_points()
+#     return render(request, 'roster/dashboard.html')
 # Create your views here.

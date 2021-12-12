@@ -6,7 +6,6 @@ from django.urls import reverse, resolve
 from mixer.backend.django import mixer
 
 
-
 def test_to_fail():
     assert True
 
@@ -50,7 +49,7 @@ class TestUrls:
         assert resolve(path).view_name == 'delete_army'
 
     def test_detail_url9(self):
-        path = reverse('delete_unit', kwargs={'army_id': 1})
+        path = reverse('delete_unit', kwargs={'army_id': 1, 'unit_id': 1})
         assert resolve(path).view_name == 'delete_unit'
 
 
